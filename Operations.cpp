@@ -12,7 +12,7 @@ float** swapRow(float* a[maxSize], int m, int n, int r);
 float** constMultMat(float* arr[maxSize], int m, int n, float c);
 float** InverseMat(float* arr[maxSize], int m, int n);
 
-float** declareMat()
+float** declareMat() // declares a 2d dynamic array of size 11x11
 {
 	float** arr = new float*[maxSize];
 	for (int i = 0; i < maxSize; i++)
@@ -26,7 +26,7 @@ float** declareMat()
 	return arr;
 }
 
-float** stoMat(string x, int* row, int* column)
+float** stoMat(string x, int* row, int* column) // converts the form  [1.2 2.2 3.1; -4.5 5.4 6.3; 2.3 5.2 4.7] into an 2d Array
 {
 	string placeHolder = "";
 	int len = x.length();
@@ -69,7 +69,7 @@ float** stoMat(string x, int* row, int* column)
 }
 
 
-void printMat(float *arr[maxSize],int m ,int n)
+void printMat(float *arr[maxSize],int m ,int n) // prints the matrix
 {
 	for (int i = 0; i < m ; i++)
 	{
@@ -83,7 +83,7 @@ void printMat(float *arr[maxSize],int m ,int n)
 	}
 }
 
-float** multMat(float* arr1[maxSize], float* arr2[maxSize],int m1,int n1,int m2,int n2)
+float** multMat(float* arr1[maxSize], float* arr2[maxSize],int m1,int n1,int m2,int n2) // multyplies two matrices
 {
 	if (n1 != m2) return 0;
 
@@ -104,7 +104,7 @@ float** multMat(float* arr1[maxSize], float* arr2[maxSize],int m1,int n1,int m2,
 	return mult;
 }
 
-float** transMat(float* arr[maxSize],int m, int n)
+float** transMat(float* arr[maxSize],int m, int n) // find the transpose of a matrix
 {
 	float** trans = declareMat();
 	for (int i = 0; i < n; i++)
@@ -117,7 +117,7 @@ float** transMat(float* arr[maxSize],int m, int n)
 	return trans;
 }
 
-float** addMat(float* arr1[maxSize], float* arr2[maxSize], int m1, int n1, int m2, int n2)
+float** addMat(float* arr1[maxSize], float* arr2[maxSize], int m1, int n1, int m2, int n2) //add two matrices
 {
 	if (m1 != m2 || n1 != n2) return 0;
 
@@ -134,7 +134,7 @@ float** addMat(float* arr1[maxSize], float* arr2[maxSize], int m1, int n1, int m
 	return sumArr;
 }
 
-float** subMat(float* arr1[maxSize], float* arr2[maxSize], int m1, int n1, int m2, int n2)
+float** subMat(float* arr1[maxSize], float* arr2[maxSize], int m1, int n1, int m2, int n2) // sub arr2 from arr1
 {
 	for (int i = 0; i < m1; i++)
 	{
@@ -147,7 +147,8 @@ float** subMat(float* arr1[maxSize], float* arr2[maxSize], int m1, int n1, int m
 	else return addMat(arr1, arr2, m1, n1, m2, n2);
 }
 
-float detMat(float* a[maxSize], int m, int n) {
+float detMat(float* a[maxSize], int m, int n) // finds the determinant of the matrix
+{
 	float d = 0;
 	float** submatrix = declareMat();
 	if (n != m) return 0;
@@ -174,7 +175,7 @@ float detMat(float* a[maxSize], int m, int n) {
 	return d;
 }
 
-float** cofMat(float* a[maxSize], int m, int n)
+float** cofMat(float* a[maxSize], int m, int n) // finds the cofactor of the matrix
 {
 	float** submatrix = declareMat();
 	float** coMat = declareMat();
@@ -240,9 +241,8 @@ float** cofMat(float* a[maxSize], int m, int n)
 	return coMat;
 }
 
-float** swapRow(float* a[maxSize], int m, int n, int r)
+float** swapRow(float* a[maxSize], int m, int n, int r) // swap the r row with first row "used to find the cofactor"
 {
-	float** matrixHolder = declareMat();
 	if (r == 0) return a;
 
 	for (int j = 0; j < n; j++)
@@ -255,12 +255,12 @@ float** swapRow(float* a[maxSize], int m, int n, int r)
 	return a;
 }
 
-float** adjMat(float* arr[maxSize],int m,int n)
+float** adjMat(float* arr[maxSize],int m,int n)//fu=ining the Adjoint of a matrix
 {
 	return transMat(cofMat(arr, m, n), m, n);
 }
 
-float** InverseMat(float* arr[maxSize], int m, int n)
+float** InverseMat(float* arr[maxSize], int m, int n) // find the inverse of the matrix
 {
 	float d = detMat(arr, m, n);
 	if (d == 0)
@@ -272,7 +272,7 @@ float** InverseMat(float* arr[maxSize], int m, int n)
 		return constMultMat(adjMat(arr, m, n), m, n, pow(d,-1));
 	}
 }
-float** constMultMat(float* arr[maxSize], int m, int n, float c)
+float** constMultMat(float* arr[maxSize], int m, int n, float c) // aconstant Multyplied by matrix
 {
 	float** prodMat = declareMat();
 	for (int i = 0; i < m; i++)
@@ -285,7 +285,7 @@ float** constMultMat(float* arr[maxSize], int m, int n, float c)
 	return prodMat;
 }
 
-float**  getFromUserA(string strA,float* A[maxSize],  int* row1, int* col1)
+float**  getFromUserA(string strA,float* A[maxSize],  int* row1, int* col1) //getting from user matrix A as in the form [1.2 2.2 3.1; -4.5 5.4 6.3; 2.3 5.2 4.7] as a string
 {
 	int mA = 0, nA = 0;
 	do
@@ -315,7 +315,7 @@ float**  getFromUserA(string strA,float* A[maxSize],  int* row1, int* col1)
 	return A;
 
 }
-float** getFromUserB(string strB, float* B[maxSize], int *row2, int* col2)
+float** getFromUserB(string strB, float* B[maxSize], int *row2, int* col2) //getting from user matrix B as in the form [1.2 2.2 3.1; -4.5 5.4 6.3; 2.3 5.2 4.7] as a string
 {
 	int  mB = 0, nB = 0;
 	do
